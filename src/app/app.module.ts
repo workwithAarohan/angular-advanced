@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TodoModule } from './forms/todo/todo.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,10 @@ import { MatCardModule } from '@angular/material/card';
     TodoModule,
     MatCardModule,
     MatFormFieldModule,
+    StoreDevtoolsModule.instrument({ 
+      maxAge: 25, 
+      logOnly: !isDevMode() 
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

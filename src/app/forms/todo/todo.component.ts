@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { deleteTodo, saveOrUpdateTodo } from './store/todo.actions';
 import { Todo } from './todo.model';
 
 @Component({
@@ -12,7 +14,7 @@ export class TodoComponent implements OnInit {
   todoDescriptionFormControl = new FormControl('', [Validators.required]);
   todoIdFormControl = new FormControl(null, [Validators.required]);
 
-  constructor() {
+  constructor(private readonly store: Store) {
   }
 
   ngOnInit(): void {
@@ -26,14 +28,24 @@ export class TodoComponent implements OnInit {
   }
 
   undoOrCompleteTodo(item: Todo) {
-    this.todos = this.todos.map(todo => todo.id === item.id ? {...todo, done: !todo.done} : todo);
+    this.todos = this.todos
+      .map(
+        todo => todo.id === item.id 
+          ? {...todo, done: !todo.done} 
+          : todo
+      );
+
+    
+    const todo: Todo = {...item, done: !item.done};
+    this.store.dispatch(saveOrUpdateTodo({todo, isUpdate: true}));
   }
 
-  deleteTodo(id: number) {
-    const todo = this.todos.find(todo => todo.id === id);
+  deleteTodo(todoId: number) {
+    const todo = this.todos.find(todo => todo.id === todoId);
     if (todo) {
       this.todos.splice(this.todos.indexOf(todo), 1);
     }
+    this.store.dispatch(deleteTodo({todoId}));
   }
 
   addTodo(): void {
@@ -44,6 +56,7 @@ export class TodoComponent implements OnInit {
         done: false
       }
       this.todos.push(todo);
+      this.store.dispatch(saveOrUpdateTodo({todo, isUpdate: false}));
     }
   }
 }
