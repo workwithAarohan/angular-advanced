@@ -5,6 +5,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { RouterModule, Routes } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { todoFeatureKey, todoReducer } from './store/todos.reducer';
+
+const routes: Routes = [
+  {path: '', component: TodoComponent}
+];
 
 @NgModule({
   declarations: [
@@ -12,10 +19,15 @@ import { MatInputModule } from '@angular/material/input';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     MatFormFieldModule,
     MatCardModule,
-    MatInputModule
-  ]
+    MatInputModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
+    StoreModule.forFeature(todoFeatureKey, todoReducer)
+  ],
+  exports: [
+    RouterModule
+  ],
 })
 export class TodoModule { }

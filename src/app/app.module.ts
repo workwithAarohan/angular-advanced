@@ -11,20 +11,25 @@ import { MatCardModule } from '@angular/material/card';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { todoReducer } from './forms/todo/store/todos.reducer';
 import { HeaderComponent } from './components/header/header.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { HeaderModule } from './components/header/header.module';
+import { VoidComponent } from './components/void/void.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    VoidComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({todoState: todoReducer}),
+    StoreModule.forRoot({}),
     BrowserAnimationsModule,
     TodoModule,
     MatCardModule,
     MatFormFieldModule,
+    HeaderModule,
+    MatToolbarModule,
     StoreDevtoolsModule.instrument({ 
       maxAge: 25, 
       logOnly: !isDevMode(),

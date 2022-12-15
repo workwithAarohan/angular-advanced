@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { VoidComponent } from './components/void/void.component';
 import { TodoComponent } from './forms/todo/todo.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'todo', pathMatch: 'full'},
-  {path: 'todo', component: TodoComponent}
+  {path: '', component: VoidComponent},
+  {
+    path: 'todo', 
+    loadChildren: () => import('./forms/todo/todo.module').then(m=> m.TodoModule)
+  }
 ];
 
 @NgModule({
