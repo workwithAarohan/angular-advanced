@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterModule, Routes } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { todoFeatureKey, todoReducer } from './store/todos.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { TodoEffects } from './store/todo.effect';
 
 const routes: Routes = [
   {path: '', component: TodoComponent}
@@ -24,7 +26,8 @@ const routes: Routes = [
     MatInputModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    StoreModule.forFeature(todoFeatureKey, todoReducer)
+    StoreModule.forFeature(todoFeatureKey, todoReducer),
+    EffectsModule.forFeature([TodoEffects])
   ],
   exports: [
     RouterModule

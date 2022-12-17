@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
-import { deleteTodo, saveOrUpdateTodo } from './store/todo.actions';
+import { deleteTodo, fetchTodos, saveOrUpdateTodo } from './store/todo.actions';
 import { selectTodos } from './store/todo.selector';
 import { Todo } from './todo.model';
 
@@ -29,6 +29,8 @@ export class TodoComponent implements OnInit, OnDestroy {
     //   {id: 4, description: 'Learn NgRx', done: false},
     //   {id: 5, description: 'Learn Angular animation', done: true},
     // ];
+    
+    this.store.dispatch(fetchTodos());
 
     this.store.pipe(
       select(selectTodos),

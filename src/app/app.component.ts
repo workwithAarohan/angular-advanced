@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-advanced';
+  isLoggedIn: boolean = false;
+
+  isAuthenticated(): boolean {
+    return this.isLoggedIn;
+  }
+
+  
+
 }
